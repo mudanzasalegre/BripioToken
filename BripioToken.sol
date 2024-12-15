@@ -119,16 +119,13 @@ contract BripioToken is
         emit VaultUpdated(ethBalance, stablecoinBalance, pibValue);
     }
 
-    // Actualizar el valor de alpha
-    function updateAlpha(uint256 newAlpha) external onlyOwner {
-        require(newAlpha + beta == 100, "Alpha and Beta must sum up to 100");
+    // Actualizar los valores de alpha y beta
+    function updateWeights(uint256 newAlpha, uint256 newBeta)
+        external
+        onlyOwner
+    {
+        require(newAlpha + newBeta == 100, "Alpha and Beta must sum up to 100");
         alpha = newAlpha;
-        emit WeightsUpdated(alpha, beta);
-    }
-
-    // Actualizar el valor de beta
-    function updateBeta(uint256 newBeta) external onlyOwner {
-        require(alpha + newBeta == 100, "Alpha and Beta must sum up to 100");
         beta = newBeta;
         emit WeightsUpdated(alpha, beta);
     }
